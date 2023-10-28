@@ -8,27 +8,31 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
         integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body>
     <div class="wrapper">
         <div class="calc">
-            <div class="calc__item display"></div>
-            <div class="keys">
+            <div class="calc__item display">
+                <p class="display__operation"></p>
+                <p class="display__input"></p>
+            </div>
+            <div class="keyboard">
                 <div class="calc__item key key--operation key--add">+</div>
                 <div class="calc__item key key--operation key--subtract">-</div>
                 <div class="calc__item key key--operation key--multiply">×</div>
                 <div class="calc__item key key--operation key--divide">÷</div>
                 <div class="calc__item key key--operation key--equals">=</div>
                 <div class="calc__item key key--general key--clear">AC</div>
-                <div class="calc__item key key--general key--percent">+/-</div>
+                <div class="calc__item key key--general key--plusminus">+/-</div>
                 <div class="calc__item key key--general key--percent">%</div>
                 <div class="calc__item key key--number">1</div>
                 <div class="calc__item key key--number">2</div>
@@ -40,7 +44,7 @@
                 <div class="calc__item key key--number">8</div>
                 <div class="calc__item key key--number">9</div>
                 <div class="calc__item key key--number">0</div>
-                <div class="calc__item key key--number key--period">.</div>
+                <div class="calc__item key key--number key--dot">.</div>
             </div>
         </div>
     </div>

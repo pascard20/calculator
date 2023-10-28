@@ -31,9 +31,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     overflow: hidden;
     background-color: #f3f4f5;
     background-image: radial-gradient(ellipse, transparent 70%, #fff);
@@ -69,11 +66,36 @@ body {
     flex: 3;
     overflow: hidden;
     margin-bottom: 5px;
+    font-size: 32px;
+}
+
+.display p {
+    text-align: right;
+    position: absolute;
+    z-index: 1;
+}
+
+.display__input {
+    bottom: 38%;
+    right: 5%;
+    transform: translateY(50%);
+    font-size: 2em;
+    font-weight: 300;
+    color: rgba(0, 0, 0, .75);
+}
+
+.display__operation {
+    top: 33%;
+    right: 6%;
+    transform: translateY(-50%);
+    font-size: .7em;
+    font-weight: 400;
+    color: rgba(0, 0, 0, .4);
 }
 
 /* ---------------------------------- KEYS ---------------------------------- */
 
-.keys {
+.keyboard {
     display: grid;
     grid-template: auto / repeat(4, 1fr);
     flex: 7;
@@ -81,6 +103,9 @@ body {
     grid-auto-flow: dense;
     color: rgba(0, 0, 0, .6);
     font-size: 30px;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .key--operation {
@@ -119,6 +144,7 @@ body {
     /* flex: 1; */
     color: rgba(0, 0, 0, .2);
     margin-bottom: 20px;
+    margin-left: 6px;
     animation: fade-in .5s .5s both;
 }
 
