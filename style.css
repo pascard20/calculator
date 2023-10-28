@@ -35,7 +35,7 @@ body {
     -ms-user-select: none;
     user-select: none;
     overflow: hidden;
-    background-color: #f2f2f3;
+    background-color: #f3f4f5;
     background-image: radial-gradient(ellipse, transparent 70%, #fff);
 }
 
@@ -54,11 +54,12 @@ body {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    animation: fade-in .7s both, roll-up .7s both;
 }
 
 .calc__item {
     border-radius: var(--keyRadius);
-    background-color: #f5f5f6;
+    background-color: #f6f6f8;
 }
 
 /* --------------------------------- DISPLAY -------------------------------- */
@@ -84,11 +85,11 @@ body {
 
 .key--operation {
     grid-column: -2;
-    background-color: #f5e0b2;
+    background-color: #f8e7c1;
 }
 
 .key--general {
-    background-color: #dbeaf7;
+    background-color: #e4f1fd;
 }
 
 .key {
@@ -97,7 +98,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    box-shadow: 1px 1px 2px 0 rgba(0, 0, 0, .2);
+    box-shadow: 1px 1px 1.5px 0 rgba(0, 0, 0, .15), 4px 4px 4px 0 rgba(0, 0, 0, .035);
 }
 
 .key {
@@ -118,6 +119,7 @@ body {
     /* flex: 1; */
     color: rgba(0, 0, 0, .2);
     margin-bottom: 20px;
+    animation: fade-in .5s .5s both;
 }
 
 .footer__wrapper {
@@ -161,12 +163,12 @@ body {
 }
 
 .key::after {
-    top: 2px;
-    left: 2px;
-    bottom: 2px;
-    right: 2px;
-    box-shadow: -10px -10px 12px 5px rgb(255, 255, 255, .5), 10px 10px 12px 5px rgb(0, 0, 0, .075);
-    filter: blur(.5px);
+    top: 4px;
+    left: 4px;
+    bottom: 4px;
+    right: 4px;
+    box-shadow: -10px -10px 12px 5px rgb(255, 255, 255, .55), 10px 10px 12px 5px rgb(0, 0, 0, .075);
+    filter: blur(1px);
 }
 
 .calc::after {
@@ -174,7 +176,7 @@ body {
     left: 0px;
     bottom: 0px;
     right: 0px;
-    box-shadow: -3px -3px 6px 4px rgb(255, 255, 255, .5), 3px 3px 6px 4px rgb(0, 0, 0, .075);
+    box-shadow: -3px -3px 6px 4px rgb(255, 255, 255, .55), 3px 3px 6px 4px rgb(0, 0, 0, .09);
     filter: blur(0.2px);
     z-index: -1;
 }
@@ -184,6 +186,28 @@ body {
     left: 5px;
     bottom: 5px;
     right: 5px;
-    box-shadow: 10px 10px 12px 5px rgb(255, 255, 255, .5), -10px -10px 12px 5px rgb(0, 0, 0, .075);
+    box-shadow: 10px 10px 12px 5px rgb(255, 255, 255, .55), -10px -10px 12px 5px rgb(0, 0, 0, .09);
     filter: blur(3px);
+}
+
+/* ------------------------------- ANIMATIONS ------------------------------- */
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes roll-up {
+    from {
+        transform: translateY(20px);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
