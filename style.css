@@ -21,6 +21,7 @@ a {
 :root {
     --keyRadius: 20px;
     --colorButton: hsl(240, 12%, 97%);
+    --transitionKey: .1s;
 }
 
 /* --------------------------------- GENERAL -------------------------------- */
@@ -73,7 +74,7 @@ body {
 .display p {
     text-align: right;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
 }
 
 .display p::selection {
@@ -147,7 +148,7 @@ body {
     align-items: center;
     overflow: hidden;
     box-shadow: 1px 1px 1.5px 0 rgba(0, 0, 0, .15), 4px 4px 4px 0 rgba(0, 0, 0, .035);
-    transition: .15s;
+    transition: var(--transitionKey);
     cursor: pointer;
 }
 
@@ -216,7 +217,7 @@ body {
     right: 4px;
     box-shadow: -10px -10px 12px 5px rgb(255, 255, 255, .55), 10px 10px 12px 5px rgb(0, 0, 0, .075);
     filter: blur(1px);
-    transition: .15s;
+    transition: var(--transitionKey);
 }
 
 .key:hover::after {

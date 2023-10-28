@@ -134,6 +134,7 @@ const handleClick = event => {
             }
             currentInput = '0';
         }
+
         if (elemClicked.className.includes('key--dot')) {
             if (!currentInput.includes('.')) {
                 currentInput += currentKey;
@@ -150,7 +151,6 @@ const handleSelect = event => {
     const range = document.createRange();
     const selection = window.getSelection();
     range.selectNodeContents(event.target);
-
     selection.removeAllRanges();
     selection.addRange(range);
 }
