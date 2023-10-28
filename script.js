@@ -67,11 +67,9 @@ const handleClick = event => {
         }
         if (currentInput?.slice(-1) === '.') currentInput = currentInput.slice(0, -1);
 
-        console.log(currentOperation, currentInput)
         if (currentOperation.includes('=')) {
             if (currentKey === '=') {
                 if (currentInput == null) {
-                    console.log('a')
                     if (currentOperation.length > 2) {
                         currentOperation = [lastResult]
                     } else return;
@@ -85,8 +83,6 @@ const handleClick = event => {
             if (currentOperation.includes(currentKey)) return;
             currentOperation = [lastResult];
         } else currentOperation.push(currentInput);
-
-
 
         if (currentOperation.length > 2) {
             const result = operation(currentOperation);
@@ -107,6 +103,7 @@ const handleClick = event => {
         // general key
         currentOperation = [];
         elemDisplayOperation.textContent = '';
+
         switch (true) {
             case elemClicked.className.includes('key--clear'):
                 currentInput = null;
@@ -149,10 +146,21 @@ const handleClick = event => {
     }
 }
 
+const handleSelect = event => {
+    const range = document.createRange();
+    const selection = window.getSelection();
+    range.selectNodeContents(event.target);
+
+    selection.removeAllRanges();
+    selection.addRange(range);
+}
+
 
 /* --------------------------------- EVENTS --------------------------------- */
 
 elemKeyboard.addEventListener('click', handleClick);
+elemDisplayInput.addEventListener('click', handleSelect);
+elemDisplayOperation.addEventListener('click', handleSelect);
 
 /* ---------------------------------- INIT ---------------------------------- */
 

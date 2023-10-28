@@ -20,6 +20,7 @@ a {
 
 :root {
     --keyRadius: 20px;
+    --colorButton: hsl(240, 12%, 97%);
 }
 
 /* --------------------------------- GENERAL -------------------------------- */
@@ -56,7 +57,7 @@ body {
 
 .calc__item {
     border-radius: var(--keyRadius);
-    background-color: #f6f6f8;
+    background-color: var(--colorButton);
 }
 
 /* --------------------------------- DISPLAY -------------------------------- */
@@ -73,6 +74,11 @@ body {
     text-align: right;
     position: absolute;
     z-index: 1;
+}
+
+.display p::selection {
+    /* color: var(--colorButton); */
+    background-color: rgba(0, 0, 0, .2);
 }
 
 .display__input {
@@ -103,18 +109,35 @@ body {
     grid-auto-flow: dense;
     color: rgba(0, 0, 0, .6);
     font-size: 30px;
+}
+
+.keyboard,
+.footer {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
 }
 
+.key--number:hover {
+    border-radius: var(--keyRadius);
+    background-color: hsl(240, 3%, 98%);
+}
+
 .key--operation {
     grid-column: -2;
-    background-color: #f8e7c1;
+    background-color: hsl(41, 80%, 86%);
+}
+
+.key--operation:hover {
+    background-color: hsl(41, 90%, 89%);
 }
 
 .key--general {
-    background-color: #e4f1fd;
+    background-color: hsl(209, 86%, 94%);
+}
+
+.key--general:hover {
+    background-color: hsl(209, 73%, 95%);
 }
 
 .key {
@@ -124,15 +147,13 @@ body {
     align-items: center;
     overflow: hidden;
     box-shadow: 1px 1px 1.5px 0 rgba(0, 0, 0, .15), 4px 4px 4px 0 rgba(0, 0, 0, .035);
-}
-
-.key {
+    transition: .15s;
     cursor: pointer;
 }
 
 .key--equals {
     grid-column: span 2;
-    order: 999;
+    order: 1;
 }
 
 /* --------------------------------- FOOTER --------------------------------- */
@@ -195,6 +216,11 @@ body {
     right: 4px;
     box-shadow: -10px -10px 12px 5px rgb(255, 255, 255, .55), 10px 10px 12px 5px rgb(0, 0, 0, .075);
     filter: blur(1px);
+    transition: .15s;
+}
+
+.key:hover::after {
+    box-shadow: -10px -10px 12px 5px rgb(255, 255, 255, .6), 10px 10px 12px 5px rgb(0, 0, 0, .09);
 }
 
 .calc::after {
