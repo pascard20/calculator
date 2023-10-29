@@ -11,6 +11,7 @@ elemFooter = document.querySelector('.footer');
 
 let currentOperation = [];
 let currentInput = '0';
+let result;
 let lastResult = null;
 
 /* -------------------------------- FUNCTIONS ------------------------------- */
@@ -64,7 +65,7 @@ const handleClick = event => {
 
     if (elemClicked.className.includes('key--operation')) {
 
-        // operation key
+        // operation key pressed
         if (currentInput?.slice(-1) === '.') currentInput = currentInput.slice(0, -1);
         if (lastResult == null) {
             if (currentInput == null) currentInput = '0';
@@ -73,15 +74,16 @@ const handleClick = event => {
 
         // if some operator key has just been pressed before
         if (currentInput == null) {
-            if (currentOperation.includes(currentKey)) return;
-            if (currentOperation.length > 2) {
-                currentOperation = [lastResult]
-            } else currentOperation = [currentOperation[0]];
+            if (currentKey === '=') {
+                if (currentOperation.length > 2) {
+                    currentOperation = [lastResult, ...currentOperation.slice(1, -1)];
+                } else if (!(currentOperation.includes('='))) currentOperation.push(currentOperation[0]);
+            } else if (currentOperation.length <= 2) currentOperation = [currentOperation[0]];
         } else currentOperation.push(currentInput);
 
-        // if there is already an operator in the operation array
+        // if there is a complete operation in the array
         if (currentOperation.length > 2) {
-            let result = operation(currentOperation);
+            result = operation(currentOperation);
             elemDisplayInput.textContent = result;
             if (result === 'Error') result = 0;
 
@@ -90,14 +92,13 @@ const handleClick = event => {
             } else currentOperation = [result, currentKey];
 
             lastResult = result;
-
         } else currentOperation.push(currentKey);
-
         currentInput = null;
         elemDisplayOperation.textContent = currentOperation.join(' ');
+
     } else if (elemClicked.className.includes('key--general')) {
 
-        // general key
+        // general key pressed
         currentOperation = [];
         elemDisplayOperation.textContent = '';
 
@@ -124,7 +125,7 @@ const handleClick = event => {
         }
     } else if (elemClicked.className.includes('key--number')) {
 
-        // number key
+        // number key pressed
         if (currentInput == null) {
             if (currentOperation.includes('=')) {
                 currentOperation = [];
@@ -132,15 +133,11 @@ const handleClick = event => {
             }
             currentInput = '0';
         }
-
         if (elemClicked.className.includes('key--dot')) {
-            if (!currentInput.includes('.')) {
-                currentInput += currentKey;
-            }
+            if (!currentInput.includes('.')) currentInput += currentKey;
         } else {
             currentInput = currentInput === '0' ? currentKey : currentInput + currentKey;
         }
-
         elemDisplayInput.textContent = currentInput;
     }
 }
@@ -154,7 +151,8 @@ const handleSelect = event => {
 }
 
 const deselect = event => {
-    if (event.target.nodeName === 'P' && event.target.className.includes('display')) return;
+    const elem = event.target;
+    if (elem.nodeName === 'P' && elem.className.includes('display')) return;
     window.getSelection().removeAllRanges();
 }
 
