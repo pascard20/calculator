@@ -33,7 +33,7 @@ const operation = operationArray => {
             if (numbers[1] == 0) return 'Error';
             result = divide(numbers[0], numbers[1]);
     }
-    return Math.round(result * 1000) / 1000;
+    return Math.round(result * 10000) / 10000;
 }
 
 /* ------------------------------- OPERATIONS ------------------------------- */
@@ -65,28 +65,18 @@ const handleClick = event => {
     if (elemClicked.className.includes('key--operation')) {
 
         // operation key
+        if (currentInput?.slice(-1) === '.') currentInput = currentInput.slice(0, -1);
         if (lastResult == null) {
             if (currentInput == null) currentInput = '0';
             lastResult = currentInput;
         }
-        if (currentInput?.slice(-1) === '.') currentInput = currentInput.slice(0, -1);
 
-        // if 'equals' key has been pressed before
-        if (currentOperation.includes('=')) {
-            if (currentKey === '=') {
-                if (currentInput == null) {
-                    if (currentOperation.length > 2) {
-                        currentOperation = [lastResult]
-                    } else return;
-                } else currentOperation = [currentInput];
-            } else {
-                if (currentInput == null) {
-                    currentOperation = [lastResult];
-                } else currentOperation = [currentInput];
-            }
-        } else if (currentInput == null) {
+        // if some operator key has just been pressed before
+        if (currentInput == null) {
             if (currentOperation.includes(currentKey)) return;
-            currentOperation = [lastResult];
+            if (currentOperation.length > 2) {
+                currentOperation = [lastResult]
+            } else currentOperation = [currentOperation[0]];
         } else currentOperation.push(currentInput);
 
         // if there is already an operator in the operation array
@@ -116,6 +106,7 @@ const handleClick = event => {
                 currentInput = null;
                 lastResult = null;
                 elemDisplayInput.textContent = '0';
+                currentOperation = [];
                 break;
             case elemClicked.className.includes('key--plusminus'):
                 if (currentInput == null) {
