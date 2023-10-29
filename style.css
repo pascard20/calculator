@@ -118,26 +118,28 @@ body {
     user-select: none;
 }
 
-.key--number:hover {
-    border-radius: var(--keyRadius);
-    background-color: hsl(240, 3%, 98%);
-}
-
 .key--operation {
     grid-column: -2;
     background-color: hsl(41, 80%, 86%);
-}
-
-.key--operation:hover {
-    background-color: hsl(41, 90%, 89%);
 }
 
 .key--general {
     background-color: hsl(209, 86%, 94%);
 }
 
-.key--general:hover {
-    background-color: hsl(209, 73%, 95%);
+@media (hover: hover) {
+    .key--number:hover {
+        border-radius: var(--keyRadius);
+        background-color: hsl(240, 3%, 98%);
+    }
+
+    .key--operation:hover {
+        background-color: hsl(41, 90%, 89%);
+    }
+
+    .key--general:hover {
+        background-color: hsl(209, 73%, 95%);
+    }
 }
 
 .key {

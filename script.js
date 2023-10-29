@@ -1,8 +1,11 @@
 /* -------------------------------- ELEMENTS -------------------------------- */
 
 elemKeyboard = document.querySelector('.keyboard');
+elemDisplay = document.querySelector('.display');
 elemDisplayInput = document.querySelector('.display__input');
 elemDisplayOperation = document.querySelector('.display__operation');
+elemCalc = document.querySelector('.calc');
+elemFooter = document.querySelector('.footer');
 
 /* -------------------------------- VARIABLES ------------------------------- */
 
@@ -27,6 +30,7 @@ const operation = operationArray => {
             result = multiply(numbers[0], numbers[1]);
             break;
         case '÷':
+            if (numbers[1] == 0) return 'Error';
             result = divide(numbers[0], numbers[1]);
     }
     return Math.round(result * 1000) / 1000;
@@ -67,6 +71,7 @@ const handleClick = event => {
         }
         if (currentInput?.slice(-1) === '.') currentInput = currentInput.slice(0, -1);
 
+        // if 'equals' key has been pressed before
         if (currentOperation.includes('=')) {
             if (currentKey === '=') {
                 if (currentInput == null) {
@@ -84,9 +89,11 @@ const handleClick = event => {
             currentOperation = [lastResult];
         } else currentOperation.push(currentInput);
 
+        // if there is already an operator in the operation array
         if (currentOperation.length > 2) {
-            const result = operation(currentOperation);
+            let result = operation(currentOperation);
             elemDisplayInput.textContent = result;
+            if (result === 'Error') result = 0;
 
             if (currentKey === '=' && (!(currentOperation.includes('=')))) {
                 currentOperation.push(currentKey);
@@ -155,12 +162,19 @@ const handleSelect = event => {
     selection.addRange(range);
 }
 
+const deselect = event => {
+    if (event.target.nodeName === 'P' && event.target.className.includes('display')) return;
+    window.getSelection().removeAllRanges();
+}
 
 /* --------------------------------- EVENTS --------------------------------- */
 
 elemKeyboard.addEventListener('click', handleClick);
 elemDisplayInput.addEventListener('click', handleSelect);
 elemDisplayOperation.addEventListener('click', handleSelect);
+elemDisplay.addEventListener('click', deselect);
+elemCalc.addEventListener('click', deselect);
+elemFooter.addEventListener('click', deselect);
 
 /* ---------------------------------- INIT ---------------------------------- */
 
