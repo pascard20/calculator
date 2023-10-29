@@ -278,9 +278,9 @@ body {
     }
 
     .footer {
-        font-size: min(5vmin, 18px);
-        margin-top: 2.5vh;
-        margin-bottom: 2.5vh;
+        font-size: min(4vmin, 17px);
+        margin-top: 2vh;
+        margin-bottom: 2vh;
     }
 }
 
