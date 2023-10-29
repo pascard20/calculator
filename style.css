@@ -278,7 +278,7 @@ body {
     }
 
     .footer {
-        font-size: 3vmin;
+        font-size: min(5vmin, 18px);
         margin-top: 2.5vh;
         margin-bottom: 2.5vh;
     }
@@ -388,6 +388,10 @@ body {
     }
 
     .footer {
-        font-size: 12px;
+        font-size: 16px;
+    }
+
+    .wrapper {
+        margin-top: 12px;
     }
 }
