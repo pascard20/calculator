@@ -6,6 +6,18 @@ elemDisplayInput = document.querySelector('.display__input');
 elemDisplayOperation = document.querySelector('.display__operation');
 elemCalc = document.querySelector('.calc');
 elemFooter = document.querySelector('.footer');
+elemsKeys = document.querySelectorAll('.key');
+
+elemKeyMultiply = document.querySelector('.key--multiply');
+elemKeyDivide = document.querySelector('.key--divide');
+elemKeyPlusMinus = document.querySelector('.key--plusminus')
+elemKeyEquals = document.querySelector('.key--equals')
+elemKeyClear = document.querySelector('.key--clear')
+elemKeyDot = document.querySelector('.key--dot')
+
+/* -------------------------------- CONSTANTS ------------------------------- */
+
+const specialKeys = ['*', '/', 'Tab', 'Enter', 'Delete'];
 
 /* -------------------------------- VARIABLES ------------------------------- */
 
@@ -13,6 +25,7 @@ let currentOperation = [];
 let currentInput = '0';
 let result;
 let lastResult = null;
+
 
 /* -------------------------------- FUNCTIONS ------------------------------- */
 
@@ -35,30 +48,35 @@ const operation = operationArray => {
             result = divide(numbers[0], numbers[1]);
     }
     return Math.round(result * 10000) / 10000;
-}
+};
+
+const deselect = event => {
+    const elem = event.target;
+    if (elem.nodeName === 'P' && elem.className.includes('display')) return;
+    window.getSelection().removeAllRanges();
+};
 
 /* ------------------------------- OPERATIONS ------------------------------- */
 
 const add = (a, b) => {
     return +a + +b;
-}
+};
 
 const subtract = (a, b) => {
     return +a - +b;
-}
+};
 
 const multiply = (a, b) => {
     return +a * +b;
-}
+};
 
 const divide = (a, b) => {
     return +a / +b;
-}
+};
 
 /* -------------------------------- HANDLERS -------------------------------- */
 
-const handleClick = event => {
-    elemClicked = event.target;
+const handleClick = elemClicked => {
     currentKey = elemClicked.textContent;
 
     if (elemClicked.className.includes('keyboard')) return;
@@ -77,7 +95,9 @@ const handleClick = event => {
             if (currentKey === '=') {
                 if (currentOperation.length > 2) {
                     currentOperation = [lastResult, ...currentOperation.slice(1, -1)];
-                } else if (!(currentOperation.includes('='))) currentOperation.push(currentOperation[0]);
+                } else if (!(currentOperation.includes('='))) {
+                    currentOperation.push(currentOperation[0]);
+                } else currentOperation = [currentOperation[0]];
             } else if (currentOperation.length <= 2) currentOperation = [currentOperation[0]];
         } else currentOperation.push(currentInput);
 
@@ -140,7 +160,7 @@ const handleClick = event => {
         }
         elemDisplayInput.textContent = currentInput;
     }
-}
+};
 
 const handleSelect = event => {
     const range = document.createRange();
@@ -148,22 +168,45 @@ const handleSelect = event => {
     range.selectNodeContents(event.target);
     selection.removeAllRanges();
     selection.addRange(range);
-}
+};
 
-const deselect = event => {
-    const elem = event.target;
-    if (elem.nodeName === 'P' && elem.className.includes('display')) return;
-    window.getSelection().removeAllRanges();
-}
+const handleKeyPress = event => {
+    console.log(event.key)
+    if (specialKeys.includes(event.key)) event.preventDefault();
+    switch (event.key) {
+        case '*':
+            handleClick(elemKeyMultiply);
+            return;
+        case '/':
+            handleClick(elemKeyDivide);
+            return;
+        case 'Tab':
+            handleClick(elemKeyPlusMinus);
+            return;
+        case 'Enter':
+            handleClick(elemKeyEquals);
+            return;
+        case 'Delete':
+            handleClick(elemKeyClear);
+            return;
+        case ',':
+            handleClick(elemKeyDot);
+            return;
+    }
+    elemsKeys.forEach(key => {
+        if (key.textContent === event.key) handleClick(key);
+    })
+};
 
 /* --------------------------------- EVENTS --------------------------------- */
 
-elemKeyboard.addEventListener('click', handleClick);
+elemKeyboard.addEventListener('click', event => handleClick(event.target));
 elemDisplayInput.addEventListener('click', handleSelect);
 elemDisplayOperation.addEventListener('click', handleSelect);
 elemDisplay.addEventListener('click', deselect);
 elemCalc.addEventListener('click', deselect);
 elemFooter.addEventListener('click', deselect);
+document.addEventListener('keydown', handleKeyPress);
 
 /* ---------------------------------- INIT ---------------------------------- */
 
